@@ -1,17 +1,17 @@
-import path from "node:path";
+import { merge } from "webpack-merge";
+import common from "./webpack.common.js";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
-export default {
+export default merge(common, {
     mode: "development",
-    entry: "./src/index.js",
-    output: {
-        filename: "main.js",
-        path: path.resolve(import.meta.dirname, "dist"),
-        clean: true,
-    },
     devtool: "eval-source-map",
     devServer: {
-        watchFiles: ["./src/template.html"]
+        static: "./dist",
+        open: {
+            app: {
+                name: "google-chrome",
+            },
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -34,4 +34,4 @@ export default {
             },
         ],
     },
-};
+});
